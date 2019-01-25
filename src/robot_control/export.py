@@ -71,9 +71,9 @@ def export_animation():
         add_data(current_joints)
 
     # velocity of first and last trajectory point must be 0.0
-    for j in  data[0]['joints']:
+    for j in data[0]['joints']:
         j['vel'] = 0.0
-    for j in  data[-1]['joints']:
+    for j in data[-1]['joints']:
         j['vel'] = 0.0
 
     # restore context

@@ -2,9 +2,9 @@
 import os
 import zmq
 
-#ZMQ_ADDRESS = 'ipc:///tmp/blender2robot'
+# ZMQ_ADDRESS = 'ipc:///tmp/blender2robot'
 ZMQ_ADDRESS = 'ipc://{}'.format(os.path.expanduser('~/.blender2robot'))
-#ZMQ_ADDRESS = 'tcp://127.0.0.1:12346'
+# ZMQ_ADDRESS = 'tcp://127.0.0.1:12346'
 
 
 def send_data(data):
