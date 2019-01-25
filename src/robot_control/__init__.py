@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from .export import export_animation
 from .zmq_export import send_data
 

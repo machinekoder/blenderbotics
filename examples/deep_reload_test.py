@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import importlib
 import time
@@ -16,7 +17,9 @@ def deep_reload(m: ModuleType):
     all_mods = tuple(sys.modules)  # prevent changing iterable while iterating over it
     sub_mods = filter(compare, all_mods)
     for pkg in sorted(sub_mods, key=lambda item: item.count('.'), reverse=True):
-        importlib.reload(sys.modules[pkg])  # reload packages, beginning with the most deeply nested
+        importlib.reload(
+            sys.modules[pkg]
+        )  # reload packages, beginning with the most deeply nested
 
 
 if __name__ == '__main__':
