@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from robot_control import panel
+from . import panel
+from . import zmq_export
 
 try:
     import bpy
@@ -12,15 +13,10 @@ def list_objects():
         print(o)
 
 
-# def timer_task():
-#     read_bone_positions(current_joints)
-#     return 0.1
-
-
 def register():
     print('register')
     panel.register()
-    # bpy.app.timers.register(timer_task)
+    zmq_export.register()
 
 
 def unregister():
@@ -29,7 +25,7 @@ def unregister():
         panel.unregister()
     except RuntimeError as e:
         print('error during unregistering {}'.format(e))
-    # bpy.app.timers.unregister(timer_task)
+    zmq_export.unregister()
 
 
 def main():

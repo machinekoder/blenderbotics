@@ -35,6 +35,16 @@ def read_bone_positions(joints):
     # bpy.data.objects['Link 6'].rotation_euler
 
 
+def write_bone_positions(joints):
+    armature = bpy.data.objects["Armature"]
+    for i, joint in enumerate(joints):
+        pose_bone = armature.pose.bones['Joint {}'.format(i + 1)]
+        for j in range(3):
+            if pose_bone.lock_rotation[j]:
+                continue
+            pose_bone.rotation_euler[j] = joint.raw_position
+
+
 def calculate_velocities(current, last, t):
     for i, joint in enumerate(current):
         joint.velocity = (joint.position - last[i].position) / t

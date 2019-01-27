@@ -13,7 +13,7 @@ class Joint(object):
 
     @property
     def raw_position(self):
-        return self.position + self.offset
+        return self.position - self.offset
 
     @raw_position.setter
     def raw_position(self, position):
