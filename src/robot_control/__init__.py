@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from .export import export_animation
-from .zmq_export import send_data
+from robot_control import panel
 
 try:
     import bpy
@@ -20,14 +19,18 @@ def list_objects():
 
 def register():
     print('register')
+    panel.register()
     # bpy.app.timers.register(timer_task)
 
 
 def unregister():
     print('unregister')
+    try:
+        panel.unregister()
+    except RuntimeError as e:
+        print('error during unregistering {}'.format(e))
     # bpy.app.timers.unregister(timer_task)
 
 
 def main():
-    data = export_animation()
-    send_data(data)
+    pass
