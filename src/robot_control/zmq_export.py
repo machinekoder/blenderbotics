@@ -2,10 +2,9 @@
 import zmq
 import bpy
 
-# ZMQ_ADDRESS = 'ipc:///tmp/blender2robot'
-# ZMQ_ADDRESS = 'ipc://{}'.format(os.path.expanduser('~/.blender2robot'))
-ZMQ_SEND_ADDRESS = 'tcp://127.0.0.1:12348'
-ZMQ_RECV_ADDRESS = 'tcp://127.0.0.1:12349'
+REAL_IP = '192.168.101.85'
+ZMQ_SEND_ADDRESS = 'tcp://{}:12348'.format(REAL_IP)
+ZMQ_RECV_ADDRESS = 'tcp://{}:12349'.format(REAL_IP)
 
 zmq_interface = None
 
@@ -19,8 +18,10 @@ class ZmqInterface(object):
         self._recv_address = recv_address
 
     def start(self):
-        self._send_socket.bind(self._send_address)
-        self._recv_socket.bind(self._recv_address)
+        self._send_socket.connect(self._send_address)
+        self._send_socket.setsockopt(zmq.LINGER, 0)
+        self._recv_socket.connect(self._recv_address)
+        self._recv_socket.setsockopt(zmq.LINGER, 0)
 
     def stop(self):
         self._send_socket.close()
