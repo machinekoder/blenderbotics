@@ -72,18 +72,17 @@ def ik_enable_property_update(group, context):
         constraint = constraints["IK"]
         constraints.remove(constraint)
         stop_reading_joint_positions()
+        # TODO: update panel joint limits
     else:
         constraint = constraints.new("IK")
         constraint.target = context.scene.objects['Target']
         constraint.use_rotation = True
         start_reading_joint_positions()
-    context.scene.update()
 
 
 def open_gripper_update(group, context):
     pose = bpy.data.objects["Armature"].pose
-    pose.bones["Gripper L Bone"].location[2] = 0.0 if group.open_gripper else 0.025
-    context.scene.update()
+    pose.bones["Gripper L Bone"].location[2] = 0.0 if group.open_gripper else 0.017
 
 
 def joint_position_update(group, _context, index):
@@ -216,9 +215,8 @@ class SetHomePoseOperator(Operator):
             setattr(robot_tool, 'joint_{}_position'.format(i + 1), joint.position)
 
         marker = bpy.data.objects['Target Marker']
-        marker.location = (
-            bpy.data.objects["Armature"].pose.bones["Gripper Core Bone"].tail
-        )
+        local_pose = bpy.data.objects["Armature"].pose.bones["Gripper Core Bone"].tail
+        marker.location = bpy.data.objects["Armature"].matrix_world @ local_pose
 
         return {'FINISHED'}
 
@@ -255,7 +253,7 @@ class OBJECT_PT_robot_control_panel(Panel):
 
         layout.prop(robot_tool, "enable_ik")
         layout.label(text="Joint Positions")
-        for i in range(1, 7):
+        for i in range(6, 0, -1):
             layout.prop(robot_tool, "joint_{}_position".format(i))
         layout.operator("wm.set_home_pose")
         layout.label(text="Actions")

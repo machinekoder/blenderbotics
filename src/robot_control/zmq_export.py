@@ -2,7 +2,7 @@
 import zmq
 import bpy
 
-REAL_IP = '192.168.101.85'
+REAL_IP = '127.0.0.1'
 ZMQ_SEND_ADDRESS = 'tcp://{}:12348'.format(REAL_IP)
 ZMQ_RECV_ADDRESS = 'tcp://{}:12349'.format(REAL_IP)
 
@@ -63,10 +63,15 @@ def register():
 
 def unregister():
     global zmq_interface
-    if zmq_interface:
-        try:
-            bpy.app.timers.unregister(zmq_interface._poll_receiver_socket)
-        except ValueError:
-            pass
-        zmq_interface.stop()
-        del zmq_interface
+    try:
+        if not zmq_interface:
+            return
+    except NameError:
+        return
+
+    try:
+        bpy.app.timers.unregister(zmq_interface._poll_receiver_socket)
+    except ValueError:
+        pass
+    zmq_interface.stop()
+    del zmq_interface

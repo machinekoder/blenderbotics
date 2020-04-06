@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from . import panel
-from . import zmq_export
 
 try:
     import bpy
+    from . import panel
+    from . import zmq_export
 except ModuleNotFoundError:
     pass
 

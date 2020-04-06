@@ -25,5 +25,4 @@ def deep_reload(m: ModuleType):
 if __name__ == '__main__':
     while True:
         deep_reload(robot_control)
-        print(robot_control.FOO)
         time.sleep(3.0)

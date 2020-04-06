@@ -2,18 +2,18 @@
 import json
 
 import zmq
-from robot_control import ZMQ_ADDRESS
+
+ZMQ_RECV_ADDRESS = 'tcp://127.0.0.1:12348'
 
 
 def consumer():
     context = zmq.Context()
-    # recieve work
+    # receive work
     consumer_receiver = context.socket(zmq.PULL)
-    consumer_receiver.connect(ZMQ_ADDRESS)
+    consumer_receiver.bind(ZMQ_RECV_ADDRESS)
 
     while True:
         work = consumer_receiver.recv_json()
-        print(work)
         print(json.dumps(work))
 
 

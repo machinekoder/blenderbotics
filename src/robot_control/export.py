@@ -8,12 +8,12 @@ from .joint import Joint
 
 
 current_joints = [
-    Joint(offset=0.0, axis=2, scale=1.0),
-    Joint(offset=0.0, axis=1, scale=1.0),
-    Joint(offset=(pi / 2), axis=1, scale=1.0),
-    Joint(offset=0.0, axis=2, scale=1.0),
-    Joint(offset=0.0, axis=1, scale=1.0),
-    Joint(offset=0.0, axis=2, scale=1.0),
+    Joint(offset=0.0, axis=2),
+    Joint(offset=0.0, axis=1),
+    Joint(offset=(pi / 2), axis=1),
+    Joint(offset=0.0, axis=2),
+    Joint(offset=0.0, axis=1),
+    Joint(offset=0.0, axis=2),
 ]
 
 
@@ -30,7 +30,7 @@ def read_bone_positions(joints):
     for i, joint in enumerate(joints):
         pose_bone = armature.pose.bones['Joint {}'.format(i + 1)]
         matrix = get_pose_bone_matrix(pose_bone)
-        joint.raw_position = (matrix.to_euler()[joint.axis]) * joint.scale
+        joint.raw_position = matrix.to_euler()[joint.axis]
     # link rotation
     # bpy.data.objects['Link 6'].rotation_euler
 
