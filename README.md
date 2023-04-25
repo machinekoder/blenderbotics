@@ -1,3 +1,7 @@
+# Animating Industrial Robots with Blender
+
+More info here: https://machinekoder.com/animating-industrial-robots-with-blender/
+
 ## How to Use
 
 Open the Blender file and load the `scripts/script.py`.
